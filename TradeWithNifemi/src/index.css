@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
 :root {
   --primary: #22f562;
   --primary-glow: #66ffa0;
@@ -10,6 +13,7 @@
   --border: #1d2c26;
   --foreground: #f4f6f2;
   --muted-fg: #9aa59c;
+  --cta: #33ff7c;
 }
 @theme {
   --color-primary: var(--primary);
@@ -21,12 +25,23 @@
   --color-border: var(--border);
   --color-foreground: var(--foreground);
   --color-muted-fg: var(--muted-fg);
+  --color-cta: var(--cta);
 
   --font-display: "Fraunces", serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
-
+@layer utilities {
+  .btn-glow {
+    @apply bg-cta text-background shadow-[0_0_20px_var(--color-primary-glow)]/30 hover:-translate-y-1 hover:shadow-[0_0_60px_var(--color-primary-glow)]/30 transition-all duration-300;
+  }
+  .btn-outline {
+    @apply text-foreground border border-border hover:border-primary/30 hover:bg-surface-el transition-all duration-300;
+  }
+  .title {
+    @apply text-xs font-mono uppercase tracking-[3px] text-primary mb-4;
+  }
+}
 .ripple {
   animation: ripple 1s ease-out infinite;
 }
