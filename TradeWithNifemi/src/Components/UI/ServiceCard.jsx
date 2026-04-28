@@ -50,7 +50,7 @@ const ServiceCard = () => {
           )}
           <span className="font-mono text-sm text-muted-fg">0{s.id}</span>
           <div>
-            <div className="inline-flex md:h-12 w-12 items-center justify-center rounded-2xl bg-cta text-primary-foreground shadow-[0_0_40px_3px_var(--color-primary-glow)]/20 mb-6">
+            <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-cta text-primary-foreground shadow-[0_0_40px_3px_var(--color-primary-glow)]/20 mb-6">
               {" "}
               {s.id === 1 ? (
                 <svg
