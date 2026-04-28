@@ -7,7 +7,7 @@ const Testimonials = () => {
         <div className="lg:col-span-7">
           <span className="title text-primary">§ Voices</span>
           <h2 className="mt-4 font-display font-light text-4xl sm:text-5xl md:text-6xl leading-none tracking-tight">
-            From the <em className="italic font-normal text-primary">desks</em>{" "}
+            From the <em className="italic font-normal text-gradient">desks</em>{" "}
             of real traders.
           </h2>
         </div>
