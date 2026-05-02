@@ -1,6 +1,9 @@
 {
   "name": "trade-with-nifemi-root",
   "private": true,
+  "dependencies": {
+    "nodemailer": "^8.0.7"
+  },
   "scripts": {
     "postinstall": "npm --prefix TradeWithNifemi install",
     "build": "npm --prefix TradeWithNifemi run build",
