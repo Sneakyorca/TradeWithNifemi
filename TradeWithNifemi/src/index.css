@@ -2,6 +2,11 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
 }
 :root {
   --primary: #22f562;
@@ -26,6 +31,9 @@ html {
   --cta: #33ff7c;
   --shadow-inset: inset 0 1px 0 hsl(145 80% 50% / 0.1);
   --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.3);
+  --shadow-elevated:
+    0 40px 100px -30px hsl(145 80% 25% / 0.25),
+    0 12px 40px -12px hsl(0 0% 0% / 0.7);
 }
 @theme {
   --color-primary: var(--primary);
@@ -57,10 +65,39 @@ html {
   .btn-outline {
     @apply text-foreground border border-border hover:border-primary/30 hover:bg-surface-el transition-all duration-300;
   }
+  .animate-fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-float {
+    animation: float 7s ease-in-out infinite;
+  }
+  .animate-pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+  .ticker-mask {
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+  }
   .shadow-elevated {
-    box-shadow:
-      0 40px 100px -30px hsl(145 80% 25% / 0.25),
-      0 12px 40px -12px hsl(0 0% 0% / 0.7);
+    box-shadow: var(--shadow-elevated);
   }
   .glass-strong {
     background: rgba(18, 30, 26, 0.85);
@@ -73,7 +110,47 @@ html {
     @apply text-xs font-mono uppercase tracking-[3px] text-primary mb-4;
   }
   .label {
-    @apply text-xs font-mono uppercase tracking-[3px] text-muted-fg;
+    @apply text-muted-fg text-xs uppercase font-mono tracking-wide;
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(
+        color-mix(in srgb, var(--primary) 5%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--primary) 5%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 64px 64px;
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 30%,
+      transparent 75%
+    );
+  }
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-weight: 500;
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    color: var(--primary);
+    border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
   }
 }
 .ripple {
@@ -88,6 +165,39 @@ html {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes ripple {
@@ -105,5 +215,14 @@ html {
   100% {
     transform: scale(1);
     opacity: 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }

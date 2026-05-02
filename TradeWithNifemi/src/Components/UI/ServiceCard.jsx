@@ -94,13 +94,14 @@ const ServiceCard = () => {
               ))}
             </ul>
             <div className="flex justify-between flex-col items-start gap-4 lg:items-center lg:flex-row">
-              <button
+              <a
+                href="#contact"
                 className={`px-4 py-2 rounded-xl inline-block ${
                   s.id === 1 ? "btn-glow" : "btn-outline"
                 }`}
               >
                 {s.cta}
-              </button>
+              </a>
               <span className="tracking-[3px] font-mono text-xs text-muted-fg uppercase hidden md:inline-block">
                 by application
               </span>

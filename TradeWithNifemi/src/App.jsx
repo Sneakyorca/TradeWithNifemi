@@ -8,12 +8,15 @@ import Process from "./Components/Sections/Process";
 import Result from "./Components/Sections/Result";
 import Services from "./Components/Sections/Services";
 import Testimonials from "./Components/Sections/Testimonials";
+import HeroChart from "./Components/UI/HeroChart";
+import Ticker from "./Components/Sections/Ticker";
 
 function App() {
   return (
-    <>
+    <div className="overflow-x-hidden w-full">
       <Navbar />
       <Hero />
+      <Ticker />
       <Services />
       <Process />
       <Result />
@@ -22,7 +25,7 @@ function App() {
       <Contact />
       <Begin />
       <Footer />
-    </>
+    </div>
   );
 }
 

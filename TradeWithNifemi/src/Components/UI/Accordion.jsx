@@ -37,7 +37,7 @@ const Accordion = () => {
         <div key={index} className="border-b border-t border-border">
           <button
             type="button"
-            className="flex w-full items-center justify-between gap-4 py-5 sm:py-6 text-left"
+            className="flex w-full items-center justify-between gap-4 py-5 sm:py-6 text-left overflow-hidden"
             onClick={() => {
               setIsActive(isActive === index ? null : index);
             }}

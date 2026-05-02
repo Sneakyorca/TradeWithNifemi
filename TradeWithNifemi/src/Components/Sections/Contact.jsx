@@ -5,17 +5,91 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     interest: "",
     message: "",
   });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (!/^[a-zA-Z\s]{2,}$/.test(formData.name.trim())) {
+      newErrors.name = "Name must contain only letters and spaces";
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Invalid email address";
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (
+      !/^(\+234|0)[0-9]{10}$|^[+]?[(]?[0-9]{1,3}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,4}[-\s.]?[0-9]{1,9}$/.test(
+        formData.phone.trim().replace(/\s/g, ""),
+      )
+    ) {
+      newErrors.phone =
+        "Invalid phone number (Nigeria: +234 or 0, International format)";
+    }
+    if (!formData.interest) newErrors.interest = "Please select a service";
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+    }
+    return newErrors;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newErrors = validateForm();
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      setLoading(true);
+      setSubmitMessage("");
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result?.message || "Failed to send message");
+        }
+
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          interest: "",
+          message: "",
+        });
+        setSubmitMessage("Message sent. We'll reply within 24 hours.");
+      } catch (error) {
+        console.error("Form submission error:", error);
+        setSubmitMessage("Message could not be sent. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
 
   const social = [
@@ -95,6 +169,9 @@ const Contact = () => {
               onChange={handleChange}
               className="mt-2 w-full h-11 rounded-lg border border-border/80 bg-background/60 px-3 text-sm text-foreground placeholder-muted-fg/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
             />
+            {errors.name && (
+              <p className="text-red-400 text-xs mt-1">{errors.name}</p>
+            )}
           </div>
           <div>
             <label
@@ -113,6 +190,30 @@ const Contact = () => {
               onChange={handleChange}
               className="mt-2 w-full h-11 rounded-lg border border-border/80 bg-background/60 px-3 text-sm text-foreground placeholder-muted-fg/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
             />
+            {errors.email && (
+              <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor="phone"
+              className="text-xs font-mono uppercase tracking-wider text-muted-fg"
+            >
+              Phone
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              placeholder="+1 (555) 123-4567"
+              maxLength={20}
+              value={formData.phone}
+              onChange={handleChange}
+              className="mt-2 w-full h-11 rounded-lg border border-border/80 bg-background/60 px-3 text-sm text-foreground placeholder-muted-fg/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+            />
+            {errors.phone && (
+              <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
+            )}
           </div>
         </div>
         <div className="mt-4">
@@ -134,6 +235,9 @@ const Contact = () => {
             <option value="management">Account Management</option>
             <option value="both">Both</option>
           </select>
+          {errors.interest && (
+            <p className="text-red-400 text-xs mt-1">{errors.interest}</p>
+          )}
         </div>
         <div className="mt-4">
           <label
@@ -152,13 +256,36 @@ const Contact = () => {
             onChange={handleChange}
             className="mt-2 w-full rounded-lg border border-border/80 bg-background/60 px-3 py-2.5 text-sm text-foreground placeholder-muted-fg/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
           />
+          {errors.message && (
+            <p className="text-red-400 text-xs mt-1">{errors.message}</p>
+          )}
         </div>
         <button
           type="submit"
-          className="mt-6 w-full h-11 bg-cta text-background font-medium rounded-lg hover:shadow-[0_0_40px_var(--color-primary-glow)/30] transition-all duration-300 flex items-center justify-center gap-2"
+          disabled={loading}
+          className="mt-6 w-full h-11 bg-cta text-background font-medium rounded-lg hover:shadow-[0_0_40px_var(--color-primary-glow)/30] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          <Send className="h-4 w-4" /> Send Message
+          {loading ? (
+            <>
+              <span className="animate-spin">⟳</span> Sending...
+            </>
+          ) : (
+            <>
+              <Send className="h-4 w-4" /> Send Message
+            </>
+          )}
         </button>
+        {submitMessage && (
+          <p
+            className={`mt-3 text-sm text-center rounded-lg p-3 ${
+              submitMessage.includes("could not")
+                ? "bg-red-500/10 text-red-400"
+                : "bg-green-500/10 text-green-400"
+            }`}
+          >
+            {submitMessage}
+          </p>
+        )}
         <p className="mt-3 text-[11px] text-muted-fg text-center">
           We typically reply within 24 hours. No spam, ever.
         </p>
