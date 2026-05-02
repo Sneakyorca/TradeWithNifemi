@@ -1,4 +1,4 @@
-import { Mail, MessageSquare, Send } from "lucide-react";
+import { Mail, MessageSquare, Send, Phone } from "lucide-react";
 import { useState } from "react";
 
 const Contact = () => {
@@ -98,6 +98,12 @@ const Contact = () => {
       platform: "email",
       link: "mailto:nif3mi123@gmail.com",
       username: "nif3mi123@gmail.com",
+    },
+    {
+      icon: Phone,
+      platform: "phone",
+      link: "tel:+234808502847",
+      username: "+234 808 502 3847",
     },
     {
       icon: MessageSquare,
