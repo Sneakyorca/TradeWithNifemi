@@ -1,4 +1,4 @@
-import Begin from "./Components/Sections/begin";
+import Begin from "./Components/Sections/Begin";
 import Contact from "./Components/Sections/Contact";
 import Faq from "./Components/Sections/Faq";
 import Hero from "./Components/Sections/Hero";
