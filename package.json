@@ -1,0 +1,11 @@
+{
+  "name": "trade-with-nifemi-root",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm --prefix TradeWithNifemi install",
+    "build": "npm --prefix TradeWithNifemi run build",
+    "dev": "npm --prefix TradeWithNifemi run dev",
+    "lint": "npm --prefix TradeWithNifemi run lint",
+    "preview": "npm --prefix TradeWithNifemi run preview"
+  }
+}
