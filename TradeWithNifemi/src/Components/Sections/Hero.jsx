@@ -34,7 +34,10 @@ const Hero = () => {
           </span>
         </p>
         <div className="flex flex-col gap-2 sm:items-center sm:gap-3 sm:flex-row mb-12">
-          <button className="btn-glow rounded-xl font-semibold px-8 py-4 flex items-center justify-between gap-2 max-w-fit">
+          <a
+            href="#contact"
+            className="btn-glow rounded-xl font-semibold px-8 py-4 flex items-center justify-between gap-2 max-w-fit"
+          >
             Start trading{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,10 +50,13 @@ const Hero = () => {
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
               />
             </svg>
-          </button>
-          <button className="btn-outline rounded-xl font-semibold px-8 py-4 max-w-fit">
+          </a>
+          <a
+            href="#services"
+            className="btn-outline rounded-xl font-semibold px-8 py-4 max-w-fit"
+          >
             See how it works
-          </button>
+          </a>
         </div>
         <div className="flex rounded-xl max-w-fit bg-linear-to-b from-surface to-surface-el">
           <div className="flex flex-col gap-2 p-4 pr-8 border-r border-border">
