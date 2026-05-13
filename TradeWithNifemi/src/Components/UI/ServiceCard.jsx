@@ -1,3 +1,4 @@
+import { Check } from "lucide-react";
 const ServiceCard = () => {
   const Service = [
     {
@@ -87,7 +88,7 @@ const ServiceCard = () => {
                   className="text-sm text-foreground flex items-start gap-3"
                 >
                   <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/20 text-primary">
-                    {/* <Check className="h-3 w-3" strokeWidth={3} /> */}
+                    <Check className="h-3 w-3" strokeWidth={3} />
                   </span>
                   <span className="text-foreground/90">{point}</span>
                 </li>
