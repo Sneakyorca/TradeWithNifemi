@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import STATS from "../../data/stats";
 const ServiceCard = () => {
   const Service = [
     {
@@ -8,7 +9,7 @@ const ServiceCard = () => {
       tagline: "We trade your account. You stay in control.",
       desc: "Limited power-of-attorney broker account. We execute with strict risk caps and report monthly — fully transparent.",
       points: [
-        "Strict 1-2% risk per trade",
+        `Strict ${STATS.riskPerTrade} risk per trade`,
         "Profit-share, no upfront fees",
         "MT4 / MT5 compatible",
         "Monthly performance statements",

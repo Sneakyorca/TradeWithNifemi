@@ -1,14 +1,56 @@
 import { TrendingUp, Eye, ShieldCheck } from "lucide-react";
 import PerformanceChart from "../UI/PerformanceChart";
+import STATS from "../../data/stats";
+import RECENT_TRADES from "../../data/recentTrades";
 
 const Result = () => {
-  const tickets = [
-    { pair: "XAU/USD", side: "BUY", date: "May 2", pips: 284, loss: false },
-    { pair: "GBP/USD", side: "SELL", date: "May 1", pips: 156, loss: false },
-    { pair: "EUR/USD", side: "BUY", date: "Apr 30", pips: 142, loss: false },
-    { pair: "BTC/USD", side: "BUY", date: "Apr 29", pips: 520, loss: false },
-    { pair: "XAU/USD", side: "SELL", date: "Apr 28", pips: 98, loss: false },
-  ];
+  // Prefer client's recent trades when available
+  const tickets =
+    RECENT_TRADES.length > 0
+      ? RECENT_TRADES.map((t) => ({
+          pair: t.pair,
+          side: t.side,
+          date: new Date(t.closedAt).toLocaleString(),
+          profit: t.profit,
+          loss: t.profit <= 0,
+        }))
+      : [
+          {
+            pair: "XAU/USD",
+            side: "BUY",
+            date: "May 2",
+            pips: 284,
+            loss: false,
+          },
+          {
+            pair: "GBP/USD",
+            side: "SELL",
+            date: "May 1",
+            pips: 156,
+            loss: false,
+          },
+          {
+            pair: "EUR/USD",
+            side: "BUY",
+            date: "Apr 30",
+            pips: 142,
+            loss: false,
+          },
+          {
+            pair: "BTC/USD",
+            side: "BUY",
+            date: "Apr 29",
+            pips: 520,
+            loss: false,
+          },
+          {
+            pair: "XAU/USD",
+            side: "SELL",
+            date: "Apr 28",
+            pips: 98,
+            loss: false,
+          },
+        ];
 
   return (
     <section id="results" className="py-20 md:py-28">
@@ -31,9 +73,9 @@ const Result = () => {
 
             <div className="mt-5 md:mt-6 grid sm:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden">
               {[
-                { i: TrendingUp, k: "+5.8%", v: "Avg monthly ROI" },
-                { i: Eye, k: "−4.2%", v: "Max drawdown" },
-                { i: ShieldCheck, k: "2.4", v: "Profit factor" },
+                { i: TrendingUp, k: STATS.avgMonthlyROI, v: "Avg monthly ROI" },
+                { i: Eye, k: STATS.maxDrawdown, v: "Max drawdown" },
+                { i: ShieldCheck, k: STATS.profitFactor, v: "Profit factor" },
               ].map((m) => (
                 <div key={m.v} className="bg-surface/80 p-5">
                   <m.i className="h-4 w-4 text-primary mb-2" />
@@ -49,7 +91,9 @@ const Result = () => {
             <div className="flex items-center justify-between mb-5">
               <div>
                 <div className="label text-muted-foreground">Recent closes</div>
-                <div className="font-display text-xl mt-1">Last 5 trades</div>
+                <div className="font-display text-xl mt-1">
+                  Recent client trades
+                </div>
               </div>
               <span className="chip">Verified</span>
             </div>
@@ -79,8 +123,9 @@ const Result = () => {
                   <div
                     className={`mono font-medium ${t.loss ? "text-bear" : "text-bull"}`}
                   >
-                    {t.pips > 0 ? "+" : ""}
-                    {t.pips} pips
+                    {typeof t.profit !== "undefined"
+                      ? `${t.profit > 0 ? "+" : ""}$${t.profit.toFixed(2)}`
+                      : `${t.pips > 0 ? "+" : ""}${t.pips} pips`}
                   </div>
                 </li>
               ))}

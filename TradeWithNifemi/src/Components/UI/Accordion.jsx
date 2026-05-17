@@ -1,5 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import STATS from "../../data/stats";
 
 const Accordion = () => {
   const [isActive, setIsActive] = useState(null);
@@ -11,7 +12,7 @@ const Accordion = () => {
     },
     {
       q: "How does account management work?",
-      a: "You keep your money in your own broker account. We trade it under a limited power of attorney with strict 1–2% risk per trade and send transparent monthly reports.",
+      a: `You keep your money in your own broker account. We trade it under a limited power of attorney with strict ${STATS.riskPerTrade} risk per trade and send transparent monthly reports.`,
     },
     {
       q: "Do I need experience to get started?",
@@ -37,7 +38,7 @@ const Accordion = () => {
         <div key={index} className="border-b border-t border-border">
           <button
             type="button"
-            className="flex w-full items-center justify-between gap-4 py-5 sm:py-6 text-left overflow-hidden"
+            className="flex w-full items-center justify-between gap-4 py-5 sm:py-6 text-left"
             onClick={() => {
               setIsActive(isActive === index ? null : index);
             }}
@@ -47,7 +48,9 @@ const Accordion = () => {
               <span className="shrink-0 font-mono text-muted-fg text-xs mt-1 sm:mt-0">
                 0{index + 1}
               </span>
-              <span className="min-w-0 overflow-hidden">{faq.q}</span>
+              <span className="min-w-0 break-words" style={{ width: "70vw" }}>
+                {faq.q}
+              </span>
             </h3>
             <ChevronDown
               className={`shrink-0 transition-transform duration-300 ${
@@ -61,8 +64,11 @@ const Accordion = () => {
               isActive === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
             }`}
           >
-            <div className="min-h-0 overflow-hidden">
-              <p className="pb-6 pl-7 sm:pl-9 text-sm sm:text-base leading-relaxed text-muted-fg">
+            <div className="min-h-0">
+              <p
+                className="pb-6 pl-7 sm:pl-9 text-sm sm:text-base leading-relaxed text-muted-fg"
+                style={{ width: "70vw" }}
+              >
                 {faq.a}
               </p>
             </div>

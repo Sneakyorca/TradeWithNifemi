@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import STATS from "../../data/stats";
+import RECENT_TRADES from "../../data/recentTrades";
 
 const points = [
   0, 12, 8, 22, 18, 30, 26, 38, 32, 48, 44, 56, 52, 68, 64, 78, 86, 80, 95, 102,
@@ -56,9 +58,32 @@ const PerformanceChart = () => {
             Equity curve · 12 months
           </div>
           <div className="mt-2 flex items-baseline gap-3">
-            <span className="font-display text-4xl">+68.4%</span>
-            <span className="mono text-sm text-bull">▲ 5.8% MoM avg</span>
+            <span className="font-display text-4xl">
+              {STATS.performanceMain}
+            </span>
+            <span className="mono text-sm text-bull">
+              ▲ {STATS.momAvg} MoM avg
+            </span>
           </div>
+          {RECENT_TRADES && RECENT_TRADES.length > 0 && (
+            <div className="mt-2 label text-sm text-muted-foreground">
+              <span>
+                Recent:{" "}
+                <strong className="text-foreground">
+                  {RECENT_TRADES.reduce((s, t) => s + t.profit, 0)}$
+                </strong>
+              </span>
+              <span className="ml-3">· {RECENT_TRADES.length} trades</span>
+              {RECENT_TRADES[RECENT_TRADES.length - 1] && (
+                <span className="ml-3">
+                  · Last:{" "}
+                  {RECENT_TRADES[RECENT_TRADES.length - 1].profit > 0
+                    ? `+${RECENT_TRADES[RECENT_TRADES.length - 1].profit}$`
+                    : `${RECENT_TRADES[RECENT_TRADES.length - 1].profit}$`}
+                </span>
+              )}
+            </div>
+          )}
         </div>
         <div className="hidden sm:flex gap-1.5">
           {["1M", "3M", "6M", "1Y"].map((t, i) => (
@@ -127,6 +152,8 @@ const PerformanceChart = () => {
               className="animate-pulse-glow"
             />
           )}
+
+          {/* trade markers could go here */}
         </svg>
 
         <div className="flex justify-between mt-3 label text-muted-foreground">

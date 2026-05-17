@@ -13,7 +13,10 @@ const Faq = () => {
             Questions,{" "}
             <span className="italic text-primary font-normal">answered</span>.
           </h2>
-          <p className="text-muted-fg leading-relaxed mt-6">
+          <p
+            className="text-muted-fg leading-relaxed mt-6"
+            style={{ width: "80vw" }}
+          >
             Still curious? Drop us a message — we reply within 24 hours.
           </p>
         </header>

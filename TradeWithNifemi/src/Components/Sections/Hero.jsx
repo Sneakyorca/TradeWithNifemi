@@ -1,5 +1,6 @@
 import { Activity, Sparkle, TrendingUp } from "lucide-react";
 import HeroChart from "../UI/HeroChart";
+import STATS from "../../data/stats";
 
 const Hero = () => {
   return (
@@ -63,19 +64,19 @@ const Hero = () => {
             <span className="font-mono tracking-[3px] text-muted-fg text-xs uppercase">
               win rate (ttm)
             </span>
-            <span className="font-display text-2xl">90%</span>
+            <span className="font-display text-2xl">{STATS.winRate}</span>
           </div>{" "}
           <div className="flex flex-col gap-2 p-4 pr-8 border-r border-border">
             <span className="font-mono tracking-[3px] text-muted-fg text-xs uppercase">
               risk per trade
             </span>
-            <span className="font-display text-2xl">1-2%</span>
+            <span className="font-display text-2xl">{STATS.riskPerTrade}</span>
           </div>{" "}
           <div className="flex flex-col gap-2 p-4 pr-8">
             <span className="font-mono tracking-[3px] text-muted-fg text-xs uppercase">
               traders served
             </span>
-            <span className="font-display text-2xl">5000+</span>
+            <span className="font-display text-2xl">{STATS.tradersServed}</span>
           </div>
         </div>
       </main>
@@ -90,8 +91,10 @@ const Hero = () => {
                 <Activity className="h-3 w-3" /> Equity · 30 days
               </div>
               <div className="mt-2 flex items-baseline gap-2">
-                <span className="font-display text-3xl">+12.4%</span>
-                <span className="mono text-xs text-bull">▲ 184 pips</span>
+                <span className="font-display text-3xl">{STATS.equity30d}</span>
+                <span className="mono text-xs text-bull">
+                  ▲ {STATS.equity30dPips} pips
+                </span>
               </div>
             </div>
             <div className="flex flex-col items-end">
@@ -99,7 +102,7 @@ const Hero = () => {
                 <Sparkle className="h-3 w-3" /> Lead: Nifemi
               </span>
               <span className="label text-muted-foreground mt-2">
-                7+ yrs · FX & Gold
+                2+ yrs · FX & Gold
               </span>
             </div>
           </div>
@@ -110,9 +113,9 @@ const Hero = () => {
 
           <div className="mt-4 grid grid-cols-3 gap-px bg-border/60 rounded-xl overflow-hidden">
             {[
-              { k: "78%", l: "Win" },
-              { k: "2.4", l: "PF" },
-              { k: "−4%", l: "DD" },
+              { k: STATS.winRate, l: "Win" },
+              { k: STATS.pf, l: "PF" },
+              { k: STATS.dd, l: "DD" },
             ].map((m) => (
               <div key={m.l} className="bg-surface px-3 py-2.5 text-center">
                 <div className="mono text-sm font-medium">{m.k}</div>
@@ -147,7 +150,9 @@ const Hero = () => {
             <TrendingUp className="h-3 w-3 text-bull" /> Closed
           </div>
           <div className="mt-1 flex items-baseline gap-2">
-            <span className="font-display text-lg text-bull">+138 pips</span>
+            <span className="font-display text-lg text-bull">
+              {STATS.closedTradePips}
+            </span>
             <span className="mono text-[10px] text-muted-foreground">
               EUR/USD
             </span>
